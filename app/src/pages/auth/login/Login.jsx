@@ -1,7 +1,8 @@
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+import { LoginApi } from "@/shared/api";
 import { useLoginForm } from "@/hooks/useLoginForm";
-
 import {
   Card,
   CardHeader,
@@ -14,10 +15,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Login() {
   const navigate = useNavigate();
-  const formik = useLoginForm();
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (data) => LoginApi(data),
+    onSuccess: (res) => {
+      navigate("/");
+      console.log(res);
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
+    },
+  });
+  const formik = useLoginForm(mutate);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted px-4">
@@ -71,10 +84,10 @@ export default function Login() {
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="remember"
-                checked={formik.values.remember}
-                onCheckedChange={(checked) =>
-                  formik.setFieldValue("remember", checked)
-                }
+                // checked={formik.values.remember}
+                // onCheckedChange={(checked) =>
+                //   formik.setFieldValue("remember", checked)
+                // }
               />
               <Label htmlFor="remember" className="text-sm">
                 Remember me
@@ -83,7 +96,7 @@ export default function Login() {
           </CardContent>
 
           <CardFooter className="flex flex-col gap-2">
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disable={isLoading}>
               Log In
             </Button>
             <Button className="w-full" onClick={() => navigate("/sign-up")}>

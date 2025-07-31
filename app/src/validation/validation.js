@@ -1,8 +1,8 @@
 import { boolean, object, ref, string } from "yup";
 
 export const registerValidationSchema = object({
-  name: string().required("Name is required"),
-  surname: string().required("Surname is required"),
+  firstName: string().required("firstName is required"),
+  lastName: string().required("lastName is required"),
   email: string().email("Invalid email").required("Email is required"),
   password: string()
     .min(6, "Minimum 6 characters")
@@ -16,7 +16,7 @@ export const registerValidationSchema = object({
 export const loginValidationSchema = object({
   email: string().email("Invalid email").required("Email is required"),
   password: string().required("Password is required"),
-  remember: boolean(),
+  // remember: boolean(),
 });
 
 export const forgotPasswordValidationSchema = object({

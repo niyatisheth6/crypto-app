@@ -3,7 +3,7 @@ import { MailIcon } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-export default function EmailVerificationModal({ open, onClose, email }) {
+export default function EmailVerificationModal({ open, onClose, email,isLoading, onResendClick }) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-md text-center py-8 px-6 rounded-2xl bg-white">
@@ -21,8 +21,9 @@ export default function EmailVerificationModal({ open, onClose, email }) {
           </p>
           <Button
             variant="ghost"
+            disabled={isLoading}
             className="bg-gray-100 w-full py-5 text-sm font-medium rounded-xl text-black hover:bg-gray-200"
-            onClick={() => alert("Resend email logic here")}
+            onClick={onResendClick}
           >
             Re-Send Email
           </Button>
