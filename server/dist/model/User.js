@@ -7,6 +7,6 @@ var UserSchema = new mongoose_1.Schema({
     email: { type: String, unquie: true },
     password: { type: String },
     isUserVerified: { type: Boolean, default: false },
-    verfiyToken: { type: String },
+    verifyToken: { type: String },
 });
 exports.default = (0, mongoose_1.model)("User", UserSchema);

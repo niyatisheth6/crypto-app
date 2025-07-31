@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/card";
 import { useMutation } from "@tanstack/react-query";
 import { EmailVarificationApi, SignUpApi } from "@/shared/api";
-// import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import EmailVerificationModal from "@/components/modal/EmailVerificationModal";
@@ -22,7 +21,6 @@ import EmailVerificationModal from "@/components/modal/EmailVerificationModal";
 export default function SignUp() {
   const [isEmailVarification, setIsEmailVarification] = useState(false);
   const [email, setEmail] = useState("");
-  // const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation({
     mutationFn: (data) => SignUpApi(data),
@@ -45,10 +43,6 @@ export default function SignUp() {
   } = useMutation({
     mutationFn: () => EmailVarificationApi({ email: email }),
     onSuccess: (res) => {
-      // navigate("/",{state:{email."niyu@gmail.com"}});
-      // const location= useLocation()
-      // const email = location.state.email
-      setIsEmailVarification(true);
       toast.success(res.data.data.message);
     },
     onError: (err) => {
@@ -200,6 +194,7 @@ export default function SignUp() {
           }}
         />
       )}
+     
     </>
   );
 }

@@ -103,13 +103,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/user/verfiy-user-mail",
+					"raw": "{{url}}/user/verify-user-mail",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"user",
-						"verfiy-user-mail"
+						"verify-user-mail"
 					]
 				}
 			},
