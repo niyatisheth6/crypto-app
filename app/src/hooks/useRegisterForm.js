@@ -24,8 +24,6 @@ export const useRegisterForm = (action, setEmail) => {
       }
       setEmail(values.email)
       action(signUpValues)
-      console.log("Form submitted!", values);
-      //   action(values)
     },
   });
 };

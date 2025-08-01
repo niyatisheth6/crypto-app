@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { CheckCircle } from "lucide-react";
 
 import {
@@ -6,11 +8,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Button } from "../ui/button";
 
 export default function PasswordResetDoneModal({ open, onClose }) {
+  const navigate = useNavigate();
+  
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-md p-6 text-center">
+      <DialogContent className="max-w-md text-center py-8 px-6 rounded-2xl bg-white">
         <div className="flex flex-col items-center space-y-6">
           <CheckCircle className="w-12 h-12 text-green-600" />
           <div>
@@ -24,7 +29,7 @@ export default function PasswordResetDoneModal({ open, onClose }) {
           <Button
             className="bg-purple-600 hover:bg-purple-700 text-white w-full max-w-xs"
             onClick={() => {
-              // Replace this with navigation if needed
+              navigate("/login");
               onClose();
             }}
           >

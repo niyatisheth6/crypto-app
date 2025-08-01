@@ -10,3 +10,7 @@ export const EmailVarificationApi = (email) =>
 
 export const VarifyUserEmailApi = (token) =>
   Axios.post(`${USER_URL}/verify-user-mail`, token);
+
+export const ForgotPasswordApi = (email) => Axios.post(`${USER_URL}/forgot-password`, email);
+
+export const VerifyForgotPasswordApi = (data) => Axios.post(`${USER_URL}/verify-forgot-mail`, data);

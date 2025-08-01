@@ -20,29 +20,32 @@ import EmailVerificationModal from "@/components/modal/EmailVerificationModal";
 
 export default function SignUp() {
   const [isEmailVarification, setIsEmailVarification] = useState(false);
+  const [verifyLink, setVerifyLink] = useState("");
   const [email, setEmail] = useState("");
 
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (data) => SignUpApi(data),
+  const {
+    mutate: emailVerificationMutate,
+    isPending: isPendingEmailVerification,
+  } = useMutation({
+    mutationFn: (emailArg) => EmailVarificationApi({ email: emailArg }),
     onSuccess: (res) => {
-      // navigate("/",{state:{email."niyu@gmail.com"}});
-      // const location= useLocation()
-      // const email = location.state.email
-      setIsEmailVarification(true);
-      EmailVerificationMutate(email);
-      toast.success(res.data.data.message);
+      const match = res.data.message.match(/https:\/\/ethereal\.email\/[^\s]+/);
+      if (match) {
+        setVerifyLink(match[0]);
+      } else {
+        toast.error("Verification link not found.");
+      }
     },
     onError: (err) => {
-      toast.error(err.response.data.message);
+      toast.error(err.response?.data?.message || "Verification failed.");
     },
   });
 
-  const {
-    mutate: EmailVerificationMutate,
-    isLoading: isLoadingEmailVarification,
-  } = useMutation({
-    mutationFn: () => EmailVarificationApi({ email: email }),
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data) => SignUpApi(data),
     onSuccess: (res) => {
+      setIsEmailVarification(true);
+      emailVerificationMutate(email);
       toast.success(res.data.data.message);
     },
     onError: (err) => {
@@ -169,7 +172,7 @@ export default function SignUp() {
               <Button
                 type="submit"
                 className="w-full"
-                disabled={!formik.values.agree || isLoading}
+                disabled={!formik.values.agree || isPending}
               >
                 Create Account
               </Button>
@@ -188,13 +191,13 @@ export default function SignUp() {
           open={isEmailVarification}
           onClose={() => setIsEmailVarification(false)}
           email={email}
-          isLoadingEmailVarification={isLoadingEmailVarification}
+          isPendingEmailVerification={isPendingEmailVerification}
           onResendClick={() => {
-            EmailVerificationMutate(email);
+            emailVerificationMutate(email);
           }}
+          verifyLink={verifyLink}
         />
       )}
-     
     </>
   );
 }

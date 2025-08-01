@@ -1,8 +1,11 @@
 import { useFormik } from "formik";
 
 import { resetPasswordValidationSchema } from "@/validation/validation";
+import { useParams } from "react-router-dom";
 
-export const useResetPasswordForm = () => {
+export const useResetPasswordForm = (action) => {
+  const { token } = useParams();
+
   return useFormik({
     initialValues: {
       password: "",
@@ -10,8 +13,11 @@ export const useResetPasswordForm = () => {
     },
     validationSchema: resetPasswordValidationSchema,
     onSubmit: (values) => {
-        console.log("Reset password for:", values);
-        // trigger forgot password API here
+      const resetPasswordValues = {
+        password : values.password,
+        token: token
+      }
+      action(resetPasswordValues)
       },
   });
 };

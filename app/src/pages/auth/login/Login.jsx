@@ -20,11 +20,10 @@ import { useMutation } from "@tanstack/react-query";
 export default function Login() {
   const navigate = useNavigate();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (data) => LoginApi(data),
-    onSuccess: (res) => {
+    onSuccess: () => {
       navigate("/");
-      console.log(res);
     },
     onError: (err) => {
       toast.error(err.response.data.message);
@@ -84,10 +83,10 @@ export default function Login() {
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="remember"
-                // checked={formik.values.remember}
-                // onCheckedChange={(checked) =>
-                //   formik.setFieldValue("remember", checked)
-                // }
+                checked={formik.values.remember}
+                onCheckedChange={(checked) =>
+                  formik.setFieldValue("remember", checked)
+                }
               />
               <Label htmlFor="remember" className="text-sm">
                 Remember me
@@ -96,7 +95,7 @@ export default function Login() {
           </CardContent>
 
           <CardFooter className="flex flex-col gap-2">
-            <Button type="submit" className="w-full" disable={isLoading}>
+            <Button type="submit" className="w-full" disabled={isPending}>
               Log In
             </Button>
             <Button className="w-full" onClick={() => navigate("/sign-up")}>

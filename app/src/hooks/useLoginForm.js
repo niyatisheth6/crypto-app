@@ -7,14 +7,17 @@ export const useLoginForm = (action) => {
     initialValues: {
       email: "",
       password: "",
-      // remember: false,
+      remember: false,
     },
     validationSchema: loginValidationSchema,
     validateOnBlur:false,
     validateOnChange:false,
     onSubmit: (values) => {
-      action(values)
-      console.log("Logging in with:", values)
+      const loginValue = {
+        email:values.email,
+        password:values.password
+      }
+      action(loginValue)
     },
   })
 }
