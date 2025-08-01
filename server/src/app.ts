@@ -14,8 +14,9 @@ import { config } from "dotenv";
 config();
 
 const app = express();
+
 app.use(
-  cors({ origin: process.env.FRONTEND_URL as string, credentials: true })
+  cors({ origin: process.env.FRONTEND_URL  || "*",credentials:true })
 );
 
 app.use(express.json());
@@ -23,6 +24,8 @@ app.use(cookieParser());
 
 app.use(passport.initialize());
 kPassport(passport);
+
+app.get('/',(req,res)=>{res.send("Welcom to my new Project")})
 
 app.use("/", exampleRoute);
 app.use("/user", userRoute);

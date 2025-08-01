@@ -17,11 +17,12 @@ var cors_1 = __importDefault(require("cors"));
 var dotenv_1 = require("dotenv");
 (0, dotenv_1.config)();
 var app = (0, express_1.default)();
-app.use((0, cors_1.default)({ origin: process.env.FRONTEND_URL, credentials: true }));
+app.use((0, cors_1.default)({ origin: process.env.FRONTEND_URL || "*", credentials: true }));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use(passport_1.default.initialize());
 (0, passport_2.default)(passport_1.default);
+app.get('/', function (req, res) { res.send("Welcom to my new Project"); });
 app.use("/", exampleRoutes_1.default);
 app.use("/user", userRoutes_1.default);
 app.use(function () {
