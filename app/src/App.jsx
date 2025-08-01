@@ -6,19 +6,35 @@ import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
 import Login from "./pages/auth/login/Login";
 import { ResetPassword } from "./pages/auth/reset-password/ResetPassword";
 import SuccessfullyRegistration from "./pages/auth/email-verify/SuccessfullyRegistration";
+import WithoutAuthentication from "./components/auth/WithoutAuthentication";
+import WithAuthentication from "./components/auth/WithAuthentication";
+import NotFound from "./pages/not-found/NotFound";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/forgot-password-verify/:token" element={<ResetPassword />} />
-        <Route path="/email-verify/:token" element={<SuccessfullyRegistration />} />
+        {/* Public routes */}
+        <Route element={<WithoutAuthentication />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/forgot-password-verify/:token"
+            element={<ResetPassword />}
+          />
+          <Route
+            path="/email-verify/:token"
+            element={<SuccessfullyRegistration />}
+          />
+        </Route>
 
+        {/* Protected route */}
+        <Route element={<WithAuthentication />}>
+          <Route path="/" element={<Dashboard />} />
+        </Route>
 
-        <Route path="/" element={<Dashboard />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

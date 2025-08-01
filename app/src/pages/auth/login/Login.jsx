@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 import { LoginApi } from "@/shared/api";
 import { useLoginForm } from "@/hooks/useLoginForm";
@@ -15,15 +16,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useMutation } from "@tanstack/react-query";
+import { useAuthentication } from "@/provider/AuthProvider";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuthentication();
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data) => LoginApi(data),
-    onSuccess: () => {
-      navigate("/");
+    onSuccess: (data) => {
+      if (data.data.token) {
+        login(data.data.token);
+      }
     },
     onError: (err) => {
       toast.error(err.response.data.message);
