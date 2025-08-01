@@ -9,6 +9,10 @@ import passport from "passport";
 import kPassport from "./middleware/passport";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { config } from "dotenv";
+
+config();
+
 const app = express();
 app.use(
   cors({ origin: process.env.FRONTEND_URL as string, credentials: true })
