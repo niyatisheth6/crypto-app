@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 
 function Support() {
   return (
-    <div className="grid lg:grid-cols-2 gap-6 grid-cols-1">
+    <div className="grid gap-6 grid-cols-1 max-w-[50%]">
       <div>
         <div className="mb-3">
           <h2 className="font-medium text-3xl">Contact Us</h2>
