@@ -31,3 +31,12 @@ export const resetPasswordValidationSchema = object({
     .oneOf([ref("password"), null], "Passwords must match")
     .required("Repeat New Password is required"),
 });
+
+
+export const contactFormValidationSchema = object({
+  name: string().required("Name is required"),
+  surname: string().required("Surname is required"),
+  email: string().email("Invalid email").required("Email is required"),
+  message: string().required("Message is required"),
+  terms: boolean().oneOf([true], "You must accept the terms and conditions")
+})

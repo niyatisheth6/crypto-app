@@ -9,6 +9,8 @@ import SuccessfullyRegistration from "./pages/auth/email-verify/SuccessfullyRegi
 import WithoutAuthentication from "./components/auth/WithoutAuthentication";
 import WithAuthentication from "./components/auth/WithAuthentication";
 import NotFound from "./pages/not-found/NotFound";
+import Transitions from "./pages/transitions/Transitions";
+import Support from "./pages/support/Support";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
         {/* Protected route */}
         <Route element={<WithAuthentication />}>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/transitions" element={<Transitions />} />
+          <Route path="/support" element={<Support />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
