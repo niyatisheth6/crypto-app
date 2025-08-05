@@ -17,14 +17,14 @@ import {
   
     return (
       <div className="rounded-xl border bg-white shadow-sm p-4">
-        <div className="flex justify-between items-center mb-4">
-          <div className="flex gap-4">
+        <div className="flex justify-end items-center mb-4 w-full">
+          {/* <div className="flex gap-4">
             <Button variant="ghost">All</Button>
             <Button variant="ghost">Deposit</Button>
             <Button variant="ghost">Withdraw</Button>
             <Button variant="ghost">Trade</Button>
-          </div>
-          <div className="flex gap-2">
+          </div> */}
+          <div className="flex gap-2 ">
             <Input placeholder="Search by ID or destination" className="w-64" />
             <Button className="bg-purple-600 hover:bg-purple-700 text-white">
               <Download className="mr-2 h-4 w-4" />
