@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import {  HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <HashRouter>
+    <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <CookiesProvider>
           <AuthProvider>
@@ -23,6 +23,6 @@ createRoot(document.getElementById("root")).render(
           </AuthProvider>
         </CookiesProvider>
       </QueryClientProvider>
-    </HashRouter>
+    </BrowserRouter>
   </StrictMode>
 );
