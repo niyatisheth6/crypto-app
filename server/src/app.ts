@@ -1,4 +1,4 @@
-import express, { ErrorRequestHandler } from "express";
+import express from "express";
 import createHttpError from "http-errors";
 import exampleRoute from "./routes/exampleRoutes";
 import userRoute from "./routes/userRoutes";
@@ -10,13 +10,14 @@ import kPassport from "./middleware/passport";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { config } from "dotenv";
+import path from "path";
 
 config();
 
 const app = express();
 
 app.use(
-  cors({ origin: process.env.FRONTEND_URL  || "*",credentials:true })
+  cors({ origin: process.env.FRONTEND_URL || "*", credentials: true })
 );
 
 app.use(express.json());
@@ -25,13 +26,14 @@ app.use(cookieParser());
 app.use(passport.initialize());
 kPassport(passport);
 
-app.get('/',(req,res)=>{res.send("Welcom to my new Project")})
-
-app.use("/", exampleRoute);
+app.use("/", exampleRoute);  
 app.use("/user", userRoute);
 
-app.use(() => {
-  throw createHttpError(404, "Route not found");
+const __dirnamePath = path.resolve(); 
+app.use(express.static(path.join(__dirnamePath, "frontend", "build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirnamePath, "frontend", "build", "index.html"));
 });
 
 app.use(errorHandler);
@@ -41,9 +43,9 @@ mongoose
   .then(() => {
     console.log("Connected to db");
     app.listen(PORT, () => {
-      console.log(`Listening On PORT ${PORT}`);
+      console.log(`Listening on PORT ${PORT}`);
     });
   })
   .catch(() => {
-    throw createHttpError(501, "Unable to connect database");
+    throw createHttpError(501, "Unable to connect to database");
   });
