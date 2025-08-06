@@ -30,10 +30,10 @@ app.use("/", exampleRoute);
 app.use("/user", userRoute);
 
 const __dirnamePath = path.resolve(); 
-app.use(express.static(path.join(__dirnamePath, "frontend", "build")));
+app.use(express.static(path.join(__dirnamePath, "app", "dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirnamePath, "frontend", "build", "index.html"));
+  res.sendFile(path.join(__dirnamePath, "app", "dist", "index.html"));
 });
 
 app.use(errorHandler);
