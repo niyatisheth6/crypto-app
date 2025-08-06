@@ -18,15 +18,15 @@ function App() {
       <Routes>
         {/* Public routes */}
         <Route element={<WithoutAuthentication />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/#/login" element={<Login />} />
+          <Route path="/#/sign-up" element={<SignUp />} />
+          <Route path="/#/forgot-password" element={<ForgotPassword />} />
           <Route
-            path="/forgot-password-verify/:token"
+            path="/#/forgot-password-verify/:token"
             element={<ResetPassword />}
           />
           <Route
-            path="/email-verify/:token"
+            path="/#/email-verify/:token"
             element={<SuccessfullyRegistration />}
           />
         </Route>
@@ -34,8 +34,8 @@ function App() {
         {/* Protected route */}
         <Route element={<WithAuthentication />}>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/transitions" element={<Transitions />} />
-          <Route path="/support" element={<Support />} />
+          <Route path="/#/transitions" element={<Transitions />} />
+          <Route path="/#/support" element={<Support />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
